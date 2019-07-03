@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
 
 import { Layout } from '../components'
-import { Spacer as Space, Box, Text, Flex } from '../components/base'
+import { Spacer as Space, Box, Text, Flex, Image } from '../components/base'
 
 //Props are coming from that query at the bottom
 const Post = props => {
@@ -113,8 +113,11 @@ const Post = props => {
             </Box>
             <Box backgroundColor="b" width="100%">
               <Title>{exported.overall.title}</Title>
-              <Space height={12} />
-              <Text>{exported.overall.description}</Text>
+              <Text p={20}>{exported.overall.description}</Text>
+              <Image
+                src="https://i.ibb.co/7kqPFpF/Screen-Shot-2019-07-02-at-1-52-36-PM.png"
+                width="100%"
+              />
             </Box>
           </Flex>
           <MDXRenderer>{code}</MDXRenderer>
@@ -129,6 +132,7 @@ export default Post
 const Content = styled(Box)`
   display: flex;
   flex-direction: column;
+  padding: 10px;
 `
 
 const Logo = styled.div`
