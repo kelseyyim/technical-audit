@@ -1,76 +1,52 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { Image, Flex, Box } from '../components/base'
+import SEO from './seo'
 
-import { rhythm, scale } from '../utils/typography'
-
-class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
-
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-            marginBottom: rhythm(-1),
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )
-    }
-    return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        {header}
-        {children}
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    )
-  }
+const Border = styled.div`
+  background-color: blue;
+  height: 10px;
+  width: 100%;
+`
+const Wrapper = styled.div`
+  padding-right: 50px;
+  padding-left: 50px;
+`
+const Banner = styled(Flex)`
+  height: 200px;
+  z-index: -1;
+  margin-left: 70%;
+  position: absolute;
+`
+const Meat = styled.div`
+  z-index: 0;
+`
+const Layout = ({ children, customSEO }) => {
+  return (
+    <>
+      <Border />
+      <Wrapper>
+        <Banner height={200}>
+          <Image src={'https://i.ibb.co/v1mMNpK/Banner.png'} width={80} />
+        </Banner>
+        <Meat>
+          {!customSEO && <SEO />}
+          {children}
+        </Meat>
+      </Wrapper>
+      <Border />
+    </>
+  )
 }
 
 export default Layout
+
+Layout.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
+  customSEO: PropTypes.bool,
+}
+
+Layout.defaultProps = {
+  customSEO: false,
+}

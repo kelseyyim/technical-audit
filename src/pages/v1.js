@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
 
 import { Layout, Article, SectionTitle } from '../components'
@@ -22,7 +22,7 @@ const Hero = styled.div`
   text-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 `
 
-const BlogIndex = ({
+const VOnePage = ({
   data: {
     allMdx: { edges: data },
   },
@@ -33,18 +33,15 @@ const BlogIndex = ({
       <Wrapper>
         <Content>
           <SectionTitle>Different Companies</SectionTitle>
-
-          {posts.map((post, key) => (
-            <div key={key}>
-              <Link style={{ boxShadow: `none` }} to={post.fields.slug} />
-              <Article
-                title={post.frontmatter.title}
-                excerpt={post.excerpt}
-                timeToRead={post.timeToRead}
-                slug={post.fields.slug}
-                key={post.fields.slug}
-              />
-            </div>
+          {posts.map(post => (
+            <Article
+              title={post.frontmatter.title}
+              date={post.frontmatter.date}
+              excerpt={post.excerpt}
+              timeToRead={post.timeToRead}
+              slug={post.fields.slug}
+              key={post.fields.slug}
+            />
           ))}
         </Content>
       </Wrapper>
@@ -52,8 +49,8 @@ const BlogIndex = ({
   )
 }
 
-export const MainQuery = graphql`
-  query MainQuery {
+export const IndexQuery = graphql`
+  query IndexQuery {
     allMdx {
       edges {
         node {
@@ -71,4 +68,4 @@ export const MainQuery = graphql`
   }
 `
 
-export default BlogIndex
+export default VOnePage
